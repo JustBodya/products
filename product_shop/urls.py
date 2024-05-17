@@ -1,16 +1,15 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from api.views import *
-from rest_framework import routers
-
-
-router = routers.DefaultRouter()
-router.register(r'product', ProductViewSet, basename='product')
-print(router.urls)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
+    path('api/v1/auth/', include('djoser.urls')),
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
+    path('api/v1/product/', ProductAPIList.as_view()),
+    path('api/v1/product/<int:pk>/', ProductAPIUpdate.as_view()),
+    path('api/v1/productdelete/<int:pk>/', ProductAPIDestroy.as_view()),
 ]

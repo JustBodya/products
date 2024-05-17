@@ -18,3 +18,4 @@ typing-extensions==4.11.0
     # via asgiref
 tzdata==2024.1
     # via django
+djoser
